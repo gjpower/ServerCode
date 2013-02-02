@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CommentActivity" >
+
+
+
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Crawl ID" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:paddingBottom="10dp"
+        android:layout_below="@id/Title"
+         >
+        
+    </EditText>
+
+    <Button
+        android:id="@+id/submitbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_gravity="center"
+
+        android:layout_below="@id/editText1" />
+ <TextView
+        android:id="@+id/showresult"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Result" 
+        android:layout_below="@id/submitbutton"/>
+    
+</RelativeLayout>
+
