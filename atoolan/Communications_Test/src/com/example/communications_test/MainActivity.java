@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
 	Button add_comment_button;
 	Button news_feed_button;
 
-	
+	//commit ||hon
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
