@@ -1,6 +1,5 @@
 <?php
-
-
+    //test commit
  // Host address
  $db_host  = "localhost";
  // Username
