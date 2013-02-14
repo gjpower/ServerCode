@@ -1,0 +1,65 @@
+html, body
+{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+form
+{
+	width: 100%;
+	height: 100%;
+}
+
+ul, li
+{
+	display: inline;
+}
+
+div#container
+{
+	width: 100%;
+	margin: 0px;
+	border: 1px solid gray;
+	line-height: 150%;
+}
+
+div#headerMenu
+{
+	height: 8em;
+	padding: 0.5em;
+	color: white;
+	background-color: gray;
+	clear: left;
+	padding: 0;
+	margin: 0;
+}
+div#sideMenu
+{
+	float: left;
+	width: 12em;
+	margin: 0;
+	padding: 1em;
+	overflow: auto;
+}
+div#mainContent
+{	
+	width: 50%;
+	height: 75%;
+	margin-left: 14em;
+	border-left: 0.1em solid gray;
+	padding: 1em;
+	overflow: auto;
+}
+
+input.largeDescription
+{
+	width: 28em;
+	height: 12em;
+}
+
+#maps_api
+{
+	width: 24em;
+	height: 24em;
+}
