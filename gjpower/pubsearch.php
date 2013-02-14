@@ -9,14 +9,14 @@ if ($mysql->connect_errno) {
 
 if ( isset($_GET["name"]) && !empty($_GET["name"]) ) {
 	if ( isset($_GET["address"]) && !empty($_GET["address"]) ) {
-		$sql_query = "SELECT * FROM Pubs WHERE pub_name LIKE '%$_GET["name"]' AND pub_location LIKE '%$_GET["address"]'";
+		$sql_query = "SELECT * FROM Pubs WHERE pub_name LIKE '%" . $_GET["name"] . "%' AND pub_location LIKE '%" . $_GET["address"] . "%'";
 	}
 	else {
-		$sql_query = "SELECT * FROM Pubs WHERE pub_name LIKE '%$_GET["name"]'";
+		$sql_query = "SELECT * FROM Pubs WHERE pub_name LIKE '%" . $_GET["name"] . "%'";
 	}
 }
 else if ( isset($_GET["address"]) && !empty($_GET["address"]) ) {
-	$sql_query = "SELECT * FROM Pubs WHERE pub_location LIKE '%$_GET["address"]'";
+	$sql_query = "SELECT * FROM Pubs WHERE pub_location LIKE '%" . $_GET["address"] . "%'";
 }
 else {
 	header('Location: index.php');
@@ -27,11 +27,16 @@ else {
 
 $result = $mysql->query($sql_query);
 
-if ($result) {
+if (!$result) {
+	header('Location: index.php');
+}
 
-	while( $row = $result->fetch_array()) {
-		$rows[] = $row;
-	}
+while( $row = $result->fetch_array()) {
+	$rows[] = $row;
+}
+
+if( !isset($rows) ) {
+	header('Location: index.php');
 }
 //$row = $result->fetch_array();
 ?>
