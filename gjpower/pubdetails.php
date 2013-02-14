@@ -30,17 +30,15 @@ if($result) {
 }
 else header ('Location: index.php');		//if query fails redirect
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
 <title><?php echo $pub_name ?></title>
 </head>
 
 <body>
 <div><h1><?php echo $pub_name ?></h1></div>
-<div><p><img src="<?php echo $pub_image ?>" ></p></div>
+<?php if (isset($pub_image) && !empty($pub_image) ) :?><div><p><img src="<?php echo $pub_image ?>" ></p></div><?php endif; ?>
 <div><p>Address: <?php echo $pub_location ?></p></div>
 <div><p>Position: <?php echo $pub_lat ?>  <?php echo $pub_long ?></p></div>
 <div><p><img src="https://maps.googleapis.com/maps/api/staticmap?markers=<?php echo $pub_lat?>,<?php echo $pub_long?>&zoom=16&size=500x500&key=AIzaSyB2J5mFUg4TvrqmCVvTznGkcXh3ENf6-zk&sensor=false"></p></div>
