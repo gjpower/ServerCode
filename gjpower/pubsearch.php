@@ -7,7 +7,23 @@ if ($mysql->connect_errno) {
 	echo "Failed to connect to MySQL: (" . $mysql->connect_errno . ") " . $mysql->connect_error;
 }
 
-$sql_query = "SELECT * FROM Pubs";
+if ( isset($_GET["name"]) && !empty($_GET["name"]) ) {
+	if ( isset($_GET["address"]) && !empty($_GET["address"]) ) {
+		$sql_query = "SELECT * FROM Pubs WHERE pub_name LIKE '%$_GET["name"]' AND pub_location LIKE '%$_GET["address"]'";
+	}
+	else {
+		$sql_query = "SELECT * FROM Pubs WHERE pub_name LIKE '%$_GET["name"]'";
+	}
+}
+else if ( isset($_GET["address"]) && !empty($_GET["address"]) ) {
+	$sql_query = "SELECT * FROM Pubs WHERE pub_location LIKE '%$_GET["address"]'";
+}
+else {
+	header('Location: index.php');
+}
+
+
+
 
 $result = $mysql->query($sql_query);
 
