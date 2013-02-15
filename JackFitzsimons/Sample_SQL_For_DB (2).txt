@@ -30,8 +30,8 @@ CREATE TABLE Comments (
     id_of_crawl INT UNSIGNED NOT NULL,
     id_user INT UNSIGNED NOT NULL,
     comment_time DATE,
-    latitude INT UNSIGNED,
-    longitude INT UNSIGNED,
+    latitude DECIMAL(12,9) NOT NULL,
+    longitude DECIMAL(12,9) NOT NULL,
     PRIMARY Key (id_comment),
     FOREIGN KEY (id_of_crawl) REFERENCES Crawls(id_of_crawl),
     FOREIGN KEY (id_user) REFERENCES Users(id_user),
@@ -46,8 +46,8 @@ CREATE TABLE Pubs (
     down_rating INT UNSIGNED NOT NULL,
     pub_image varchar(100) NOT NULL,
     pub_description varchar(250) NOT NULL,
-    latitude float(12,9) NOT NULL,
-    longitude float(12, 9) NOT NULL,
+    latitude DECIMAL(12,9) NOT NULL,
+    longitude DECIMAL(12, 9) NOT NULL,
     PRIMARY Key (id_pub),
     UNIQUE (id_pub)
 ) ENGINE = InnoDB;
