@@ -152,8 +152,8 @@ INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES
 INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby7 Pub', 'Dape St', 9, 62.343, 123.123);
 INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby8 Pub', 'Dase St', 4, 34.56, 1.1234);
 INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby9 Pub', 'Daze St', 2, 98.234398, 88.38388);
-INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby0 Pub', 'Dage St', 16, 56.34675, 123,12);
-INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby11 Pub', 'Dake St', 12, 52.3532, 74,848484);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby0 Pub', 'Dage St', 16, 56.34675, 123.12);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby11 Pub', 'Dake St', 12, 52.3532, 74.848484);
 
 INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 1, NOW());
 INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (2, 1, NOW());
