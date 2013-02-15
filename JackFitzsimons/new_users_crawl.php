@@ -1,11 +1,11 @@
 <?php
     //test commit
  // Host address
- $db_host  = "localhost";
+ $db_host  = "164.138.29.169";
  // Username
  $db_uid  = "root";
  // Password
- $db_pass = "";
+ $db_pass = "notASecurePassword";
  // Database name  
  $db_name  = "Pub_Crawl"; 
  // Table name

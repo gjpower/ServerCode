@@ -30,7 +30,8 @@ CREATE TABLE Comments (
     id_of_crawl INT UNSIGNED NOT NULL,
     id_user INT UNSIGNED NOT NULL,
     comment_time DATE,
-    gps INT UNSIGNED,
+    latitude INT UNSIGNED,
+    longitude INT UNSIGNED,
     PRIMARY Key (id_comment),
     FOREIGN KEY (id_of_crawl) REFERENCES Crawls(id_of_crawl),
     FOREIGN KEY (id_user) REFERENCES Users(id_user),
@@ -41,8 +42,12 @@ CREATE TABLE Pubs (
     id_pub INT UNSIGNED NOT NULL AUTO_INCREMENT,
     pub_name VARCHAR(40) NOT NULL,
     pub_location VARCHAR(100) NOT NULL,
-    user_rating INT UNSIGNED NOT NULL,
-    gps INT NOT NULL,
+    up_rating INT UNSIGNED NOT NULL,
+    down_rating INT UNSIGNED NOT NULL,
+    pub_image varchar(100) NOT NULL,
+    pub_description varchar(250) NOT NULL,
+    latitude float(12,9) NOT NULL,
+    longitude float(12, 9) NOT NULL,
     PRIMARY Key (id_pub),
     UNIQUE (id_pub)
 ) ENGINE = InnoDB;
@@ -50,7 +55,7 @@ CREATE TABLE Pubs (
 CREATE TABLE Schedules (
     id_pub INT UNSIGNED NOT NULL,
     id_of_crawl INT UNSIGNED NOT NULL,
-    schedual_time DATE,
+    schedule_time DATE,
     PRIMARY Key (id_pub, id_of_crawl),
     FOREIGN KEY (id_of_crawl) REFERENCES Crawls(id_of_crawl),
     FOREIGN KEY (id_pub) REFERENCES Pubs(id_pub)
@@ -138,31 +143,31 @@ INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VA
 INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('http://guiaavare.com/img/upload/images/meme-rindo.jpg', 2, 9, 7, NOW());
 INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('http://guiaavare.com/img/upload/images/meme-rindo.jpg', 2, 3, 8, NOW());
     
-INSERT INTO Pubs (pub_name, pub_location, user_rating, gps) VALUES ('Pubby1 Pub', 'Dame St', 1, 123321);
-INSERT INTO Pubs (pub_name, pub_location, user_rating, gps) VALUES ('Pubby2 Pub', 'Dane St', 3, 98756);
-INSERT INTO Pubs (pub_name, pub_location, user_rating, gps) VALUES ('Pubby3 Pub', 'Dare St', 2, 23456);
-INSERT INTO Pubs (pub_name, pub_location, user_rating, gps) VALUES ('Pubby4 Pub', 'Date St', 5, 87347843);
-INSERT INTO Pubs (pub_name, pub_location, user_rating, gps) VALUES ('Pubby5 Pub', 'Dave St', 7, 848484);
-INSERT INTO Pubs (pub_name, pub_location, user_rating, gps) VALUES ('Pubby6 Pub', 'Dale St', 6, 8283294);
-INSERT INTO Pubs (pub_name, pub_location, user_rating, gps) VALUES ('Pubby7 Pub', 'Dape St', 9, 62343);
-INSERT INTO Pubs (pub_name, pub_location, user_rating, gps) VALUES ('Pubby8 Pub', 'Dase St', 4, 3456);
-INSERT INTO Pubs (pub_name, pub_location, user_rating, gps) VALUES ('Pubby9 Pub', 'Daze St', 2, 98234398);
-INSERT INTO Pubs (pub_name, pub_location, user_rating, gps) VALUES ('Pubby0 Pub', 'Dage St', 16, 5634675);
-INSERT INTO Pubs (pub_name, pub_location, user_rating, gps) VALUES ('Pubby11 Pub', 'Dake St', 12, 523532);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby1 Pub', 'Dame St', 1, 12.3321, 75.2);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby2 Pub', 'Dane St', 3, 98.756, 12.34);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby3 Pub', 'Dare St', 2, 23.456, 123.32);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby4 Pub', 'Date St', 5, 87.347843, 12.34);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby5 Pub', 'Dave St', 7, 84.8484, 345);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby6 Pub', 'Dale St', 6, 82.83294, 435);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby7 Pub', 'Dape St', 9, 62.343, 123.123);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby8 Pub', 'Dase St', 4, 34.56, 1.1234);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby9 Pub', 'Daze St', 2, 98.234398, 88.38388);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby0 Pub', 'Dage St', 16, 56.34675, 123,12);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby11 Pub', 'Dake St', 12, 52.3532, 74,848484);
 
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (1, 1, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (2, 1, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (3, 1, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (4, 1, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (5, 1, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (6, 1, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (7, 1, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (8, 1, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (1, 2, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (1, 3, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (1, 4, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (1, 5, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (1, 6, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (3, 2, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (5, 3, NOW());
-INSERT INTO Schedules (id_pub, id_of_crawl, schedual_time) VALUES (4, 3, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (2, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (3, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (4, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (5, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (6, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (7, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (8, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 2, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 3, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 4, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 5, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 6, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (3, 2, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (5, 3, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (4, 3, NOW());
