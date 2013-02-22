@@ -1,15 +1,15 @@
 <?php
     //test commit
  // Host address
- $db_host  = "164.138.29.169";
+ $db_host  = "localhost";
  // Username
  $db_uid  = "root";
  // Password
- $db_pass = "notASecurePassword";
+ $db_pass = "";
  // Database name  
  $db_name  = "Pub_Crawl"; 
  // Table name
- $tbl_name="Comments"; 
+ $tbl_name="Users"; 
 
 //Establishing Connection
  mysql_connect("$db_host", "$db_uid", "$db_pass")or die("cannot connect"); 
@@ -17,14 +17,14 @@
  mysql_select_db("$db_name")or die("cannot select DB");
  
 //Store information passed  
- $comment = $_POST["Comment"];
+ $name = $_POST["UserName"];
  $userid = $_POST["UserID"];
- $crawlid = $_POST["CrawlID"];
+ 
+ $sql="REPLACE INTO Users SET id_user = '$userid', user_name = '$name';";
 
- $sql="INSERT INTO Comments(comment_body,id_of_crawl,id_user) VALUES ('$comment','$userid','$crawlid')";
  $result=mysql_query($sql);
    if($result)
-     echo "Comment Uploaded Successfully";
+     echo "New User Uploaded Successfully";
       else
     echo "Comment Upload Failed";
  

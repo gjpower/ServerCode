@@ -41,7 +41,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
+	
+	String currentUserName;
 	EditText cID;   
 	Button submit;    
 	TextView tv;      // TextView to show the result of MySQL query 
@@ -55,12 +56,15 @@ public class MainActivity extends Activity {
  
  	int UserID = 1;
  	int CrawlID = 1;
+ 	List<int> PreviousCrawls;
  	
 	HttpEntity resEntity;
  	
 	public static final int HTTP_TIMEOUT = 30 * 1000; // milliseconds
 	/** Single instance of our HttpClient */
 	private static HttpClient mHttpClient;
+	
+
  
  String returnString; 
 	@Override
@@ -88,8 +92,77 @@ public class MainActivity extends Activity {
 		        		postComment();
 		        	}
 		        });
+	        PreviousCrawls= new ArrayList<Integer>();
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/*New_Member: Jack
+	string username
+	int user_id (generated and saved in Private Data)
+	bool successfulSignIn (returned, move onto SIgn_In)
+	
+	Sign_In: Jack
+		int crawl_id (saved)
+	*/
+	
+	boolean New_Member(int user_id, String username){
+		currentUserName = username;
+		UserID = user_id;
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		postParameters.add(new BasicNameValuePair("UserName",username));
+        postParameters.add(new BasicNameValuePair("UserID", Integer.toString(UserID)));
+		//notify server of changes
+		 try {
+			    response = executeHttpPost("http://192.168.1.15/new_member.php",postParameters);
+			    
+			    // store the result returned by PHP script that runs MySQL query
+			    String result = response.toString();  
+			    //tv.setText(response);
+			    
+			    Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
+			     
+			 
+			    
+		 }
+		 catch (Exception e) {
+			       	  Toast.makeText(getApplicationContext(),"Connection Error, Please try again", Toast.LENGTH_LONG).show();
+			       	  Log.e("log_tag","Error in http connection!!" + e.toString()); 
+			       	return false;
+		 }
+		
+		return true;
+	}
+	
+	boolean Sing_In(in crawl_id){
+		CrawlID =  crawl_id;
+		for (int i=0; i<PreviousCrawls.length(); i++){
+			if(crawl_id = PreviousCrawls[i]) return true;
+		}
+		PreviousCrawls.add(crawl_id);
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		postParameters.add(new BasicNameValuePair("CrawlID",crawl_id));
+        postParameters.add(new BasicNameValuePair("UserID", Integer.toString(UserID)));
+		//notify server of changes
+		 try {
+			    response = executeHttpPost("http://192.168.1.15/new_users_crawl.php",postParameters);
+			    
+			    // store the result returned by PHP script that runs MySQL query
+			    String result = response.toString();  
+			    //tv.setText(response);
+			    
+			    Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
+			     
+			 
+			    
+		 }
+		 catch (Exception e) {
+			       	  Toast.makeText(getApplicationContext(),"Connection Error, Please try again", Toast.LENGTH_LONG).show();
+			       	  Log.e("log_tag","Error in http connection!!" + e.toString()); 
+			       	return false;
+		 }
+		return true;
+	}
+
+	
 	protected void postComment (){
 		 ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
          

@@ -1,0 +1,173 @@
+CREATE TABLE Crawls (
+    id_of_crawl INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    crawls_name VARCHAR(50),
+    start_date DATE,
+    crawlers_code INT UNSIGNED NOT NULL,
+    admin_code INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_of_crawl),
+    UNIQUE (id_of_crawl)
+) ENGINE=InnoDB;
+
+CREATE TABLE Users (
+    id_user INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_name varchar(20) NOT NULL,
+    PRIMARY KEY (id_user),
+    UNIQUE (id_user)
+) ENGINE=InnoDB;
+
+CREATE TABLE Users_To_Crawl (
+    id_user INT UNSIGNED NOT NULL,
+    id_of_crawl INT UNSIGNED NOT NULL,
+    PRIMARY Key (id_user, id_of_crawl),
+    FOREIGN KEY (id_of_crawl) REFERENCES Crawls(id_of_crawl),
+    FOREIGN KEY (id_user) REFERENCES Users(id_user)
+) ENGINE = InnoDB;
+
+CREATE TABLE Comments (
+    id_comment INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    comment_body varchar(250),
+    type INT NOT NULL,
+    id_of_crawl INT UNSIGNED NOT NULL,
+    id_user INT UNSIGNED NOT NULL,
+    comment_time DATE,
+    latitude DECIMAL(12,9) NOT NULL,
+    longitude DECIMAL(12,9) NOT NULL,
+    PRIMARY Key (id_comment),
+    FOREIGN KEY (id_of_crawl) REFERENCES Crawls(id_of_crawl),
+    FOREIGN KEY (id_user) REFERENCES Users(id_user),
+    UNIQUE (id_comment)
+) ENGINE = InnoDB;
+
+CREATE TABLE Pubs (
+    id_pub INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    pub_name VARCHAR(40) NOT NULL,
+    pub_location VARCHAR(100) NOT NULL,
+    up_rating INT UNSIGNED NOT NULL,
+    down_rating INT UNSIGNED NOT NULL,
+    pub_image varchar(100) NOT NULL,
+    pub_description varchar(250) NOT NULL,
+    latitude DECIMAL(12,9) NOT NULL,
+    longitude DECIMAL(12, 9) NOT NULL,
+    PRIMARY Key (id_pub),
+    UNIQUE (id_pub)
+) ENGINE = InnoDB;
+
+CREATE TABLE Schedules (
+    id_pub INT UNSIGNED NOT NULL,
+    id_of_crawl INT UNSIGNED NOT NULL,
+    schedule_time DATE,
+    PRIMARY Key (id_pub, id_of_crawl),
+    FOREIGN KEY (id_of_crawl) REFERENCES Crawls(id_of_crawl),
+    FOREIGN KEY (id_pub) REFERENCES Pubs(id_pub)
+) ENGINE = InnoDB;
+
+
+INSERT INTO Crawls (crawls_name, start_date, crawlers_code,admin_code) VALUES ('Big bad sesh', Now(), 12345, 01234);
+INSERT INTO Crawls (crawls_name, start_date, crawlers_code,admin_code) VALUES ('Big sad sesh', Now(), 2345, 8765);
+INSERT INTO Crawls (crawls_name, start_date, crawlers_code,admin_code) VALUES ('Big lad sesh', Now(), 08768, 3747);
+INSERT INTO Crawls (crawls_name, start_date, crawlers_code,admin_code) VALUES ('Big had sesh', Now(), 76231, 85542);
+INSERT INTO Crawls (crawls_name, start_date, crawlers_code,admin_code) VALUES ('Big mad sesh', Now(), 0876, 7354);
+INSERT INTO Crawls (crawls_name, start_date, crawlers_code,admin_code) VALUES ('Big fad sesh', Now(), 12, 5678);
+INSERT INTO Crawls (crawls_name, start_date, crawlers_code,admin_code) VALUES ('Big tad sesh', Now(), 0987, 01234);
+INSERT INTO Crawls (crawls_name, start_date, crawlers_code,admin_code) VALUES ('Big cad sesh', Now(), 8574, 92928);
+INSERT INTO Crawls (crawls_name, start_date, crawlers_code,admin_code) VALUES ('Big rad sesh', Now(), 6565, 92929);
+
+INSERT INTO Users (user_name) VALUES ('Biggy Big');
+INSERT INTO Users (user_name) VALUES ('Smally small');
+INSERT INTO Users (user_name) VALUES ('Smelly');
+INSERT INTO Users (user_name) VALUES ('Stinky');
+INSERT INTO Users (user_name) VALUES ('Pinky');
+INSERT INTO Users (user_name) VALUES ('Jimmy');
+INSERT INTO Users (user_name) VALUES ('Bobby');
+INSERT INTO Users (user_name) VALUES ('Mr. Unoriginal');
+INSERT INTO Users (user_name) VALUES ('Mr. SQL');
+INSERT INTO Users (user_name) VALUES ('Mrs Curvy');
+INSERT INTO Users (user_name) VALUES ('Mr Boombastic');
+
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (1 , 1);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (2 , 1);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (3 , 1);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (4 , 1);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (5 , 1);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (6 , 1);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (7 , 1);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (8 , 1);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (9 , 1);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (10 , 1);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (11 , 1);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (1 , 2);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (2 , 2);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (3 , 2);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (4 , 2);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (5 , 2);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (6 , 2);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (7 , 2);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (8 , 2);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (9 , 2);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (10 , 3);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (11 , 3);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (1 , 3);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (2 , 3);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (3 , 4);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (4 , 4);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (5 , 4);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (6 , 4);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (7 , 4);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (8 , 4);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (9 , 5);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (10 , 6);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (11 , 7);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (1 , 7);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (2 , 7);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (3 , 7);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (4 , 7);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (5 , 7);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (6 , 7);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (7 , 7);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (8 , 7);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (9 , 7);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (10 , 8);
+INSERT INTO Users_To_Crawl (id_user, id_of_crawl) VALUES (11 , 8);
+
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('Hello World', 1, 1, 1, NOW());
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('Hello computer', 1, 1, 1, NOW());
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('sample text', 1, 1, 1, NOW());
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('hcvb', 1, 1, 1, NOW());
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('lkjh', 1, 2, 1, NOW());
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('Worrrrrrrld says hi', 1, 3, 5, NOW());
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('If your reading this you know at least a little sql', 1, 4, 2, NOW());
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('so congratulations', 1, 5, 4, NOW());
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('your parents were wrong, your not a total failure..', 1, 6, 3, NOW());
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('http://www.randomwebsite.com/images/head.jpg', 2, 7, 7, NOW());
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('http://www.randomwebsite.com/images/head.jpg', 2, 8, 7, NOW());
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('http://guiaavare.com/img/upload/images/meme-rindo.jpg', 2, 9, 7, NOW());
+INSERT INTO Comments (comment_body, type, id_of_crawl, id_user, comment_time) VALUES ('http://guiaavare.com/img/upload/images/meme-rindo.jpg', 2, 3, 8, NOW());
+    
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby1 Pub', 'Dame St', 1, 12.3321, 75.2);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby2 Pub', 'Dane St', 3, 98.756, 12.34);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby3 Pub', 'Dare St', 2, 23.456, 123.32);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby4 Pub', 'Date St', 5, 87.347843, 12.34);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby5 Pub', 'Dave St', 7, 84.8484, 345);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby6 Pub', 'Dale St', 6, 82.83294, 435);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby7 Pub', 'Dape St', 9, 62.343, 123.123);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby8 Pub', 'Dase St', 4, 34.56, 1.1234);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby9 Pub', 'Daze St', 2, 98.234398, 88.38388);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby0 Pub', 'Dage St', 16, 56.34675, 123.12);
+INSERT INTO Pubs (pub_name, pub_location, up_rating, latitude, longitude) VALUES ('Pubby11 Pub', 'Dake St', 12, 52.3532, 74.848484);
+
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (2, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (3, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (4, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (5, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (6, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (7, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (8, 1, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 2, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 3, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 4, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 5, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (1, 6, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (3, 2, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (5, 3, NOW());
+INSERT INTO Schedules (id_pub, id_of_crawl, schedule_time) VALUES (4, 3, NOW());
