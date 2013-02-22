@@ -1,56 +1,64 @@
+<?php
+include ("sjdlkjf/vmnbcm/qporuiow/mysqlaccess.php");
+
+$mysql = mysqlConnect(); //create connection and select database
+//Checking connection Connection
+if ($mysql->connect_errno) {
+	echo "Failed to connect to MySQL: (" . $mysql->connect_errno . ") " . $mysql->connect_error;
+}
+
+if ( isset($_GET["name"]) && !empty($_GET["name"]) ) {
+	if ( isset($_GET["address"]) && !empty($_GET["address"]) ) {
+		$sql_query = "SELECT * FROM Pubs WHERE pub_name LIKE '%" . $_GET["name"] . "%' AND pub_location LIKE '%" . $_GET["address"] . "%'";
+	}
+	else {
+		$sql_query = "SELECT * FROM Pubs WHERE pub_name LIKE '%" . $_GET["name"] . "%'";
+	}
+}
+else if ( isset($_GET["address"]) && !empty($_GET["address"]) ) {
+	$sql_query = "SELECT * FROM Pubs WHERE pub_location LIKE '%" . $_GET["address"] . "%'";
+}
+else {
+	header('Location: index.php');
+}
+
+
+
+
+$result = $mysql->query($sql_query);
+
+if (!$result) {
+	header('Location: index.php');
+}
+
+while( $row = $result->fetch_array()) {
+	$rows[] = $row;
+}
+
+if( !isset($rows) ) {
+	header('Location: index.php');
+}
+//$row = $result->fetch_array();
+?>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8" />
-<title></title>
-<link rel="stylesheet" type="text/css" href="theStyleSheet.css">
 
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<title>Pub List</title>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2J5mFUg4TvrqmCVvTznGkcXh3ENf6-zk&sensor=true"></script>
-    <script src="theJavaScript.js"></script>
-
+</head>
 
 <body>
-<div id="headerMenu">
-	<ul>
-		<li class="headerMenuOption">aaaaa</li>
-		<li class="headerMenuOption">bbbbb</li>
-		<li class="headerMenuOption">ccccc</li>
-		<li class="headerMenuOption">ddddd</li>
-		<li class="headerMenuOption">eeeee</li>
-	</ul>
-</div>
 
 
-<div id="sideMenu">
-		<div class="sideMenuOption">11111</div>
-		<div class="sideMenuOption">22222</div>
-		<div class="sideMenuOption">33333</div>
-		<div class="sideMenuOption">44444</div>
-</div>
-
-
-<div id="mainContent">
-		<form action="uploadpubdata.php" method="post" enctype="multipart/form-data">
-		Pub Name:<input type="text" name="pubName" placeholder="Enter Pub name" class="smallInput" /><br>
-		Profile Image:<input type="file" name="pubImage" /><br>
-		Address:<br><textarea name="position" id="address" rows="5" cols="20"></textarea>
-		<p>Please use format "Street with optional number, City Area, City, Country<br> e.g College Green, Dublin 2, Co. Dublin, Ireland</p>
-		<input type="button" name="useMap" value="Correct Address" onclick="getLocation()" /><input type="button" name="useCurrent" value="Use current location" onclick="useCurrentLocation()" /><br>
-		<label for="lat">Latitude:</label><input type="text" name="lat" id="lat"/><label for="long">Longitude:</label><input type="text" name="long" id="long"/><br>
-						<div id="maps_api"></div>
-				
-		<label for="pubDescription">Pub Description:</label><br><textarea name="pubDescription" placeholder="Enter pub description here..." class="largeDescription" cols="40" rows="10" maxlength="250"></textarea><br>
-		<input type="submit" name="submit" value="submit" />
-		
-		</form>
-		
-		
-
-</div>
-
-
-
+<table>
+<?php foreach ($rows as $thispub): ?>
+<tr><div id="name_link" ><a href="pubdetails.php?pub_id=<?= $thispub["id_pub"] ?>"><?= $thispub["pub_name"] ?></a></div><div id="address"><?= $thispub["pub_location"] ?></div></tr>
+<?php endforeach; ?>
+</table>
+	
+	
 </body>
+
 </html>
