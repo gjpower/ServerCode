@@ -1,5 +1,7 @@
 <?php
-session_start();
+if(!isset($_SESSION)) {
+	session_start();
+}
 if (isset($_SESSION["ADMIN"]) && !empty($_SESSION["ADMIN"])) {	//check if you should be allowed here
 	if ($_SESSION["ADMIN"] == TRUE)
 		$admin_rights = TRUE;
