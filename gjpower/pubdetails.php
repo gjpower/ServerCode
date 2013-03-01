@@ -1,9 +1,16 @@
 <?php
+session_start();
 
 if (!isset($_GET["pub_id"]) || empty($_GET["pub_id"])) {	//if none or an empty pub_id has been pushed redirect somewhere
 	header ('Location: index.php');
 }
 include ("sjdlkjf/vmnbcm/qporuiow/mysqlaccess.php");
+
+if (isset($_SESSION["ADMIN"]) && !empty($_SESSION["ADMIN"])) {
+	if ($_SESSION["ADMIN"] == TRUE)
+		$admin_rights = TRUE;
+}
+	
 
 $mysql = mysqlConnect(); //create connection and select database
 //Checking connection Connection
@@ -31,13 +38,13 @@ if($result) {
 else header ('Location: index.php');		//if query fails redirect
 ?>
 <!DOCTYPE html>
-<html>
+
 <head>
 <title><?php echo $pub_name ?></title>
 </head>
 
 <body>
-<div><h1><?php echo $pub_name ?></h1></div>
+<div><h1><?php echo $pub_name ?></h1></div><?php if(admin_rights == TRUE): ?><a href="pubedit.php?edit=<?= $pub_id ?>">Edit</a><?php endif; ?>
 <?php if (isset($pub_image) && !empty($pub_image) ) :?><div><p><img src="<?php echo $pub_image ?>" ></p></div><?php endif; ?>
 <div><p>Address: <?php echo $pub_location ?></p></div>
 <div><p>Position: <?php echo $pub_lat ?>  <?php echo $pub_long ?></p></div>

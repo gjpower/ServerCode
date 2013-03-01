@@ -1,4 +1,5 @@
 <?php
+session_start();
 include ("sjdlkjf/vmnbcm/qporuiow/mysqlaccess.php");
 
 $mysql = mysqlConnect();
@@ -21,7 +22,17 @@ if(isset($_FILES["pubImage"]["name"]) && !empty($_FILES["pubImage"]["name"])) {
 }
 else echo "pub image not uploaded " . $_FILES['pubImage']['name'];
 
-$sql = "INSERT INTO Pubs(pub_name, pub_image, pub_location, pub_description, user_rating, latitude, longitude) VALUES ('$pub_name', '$file_location', '$pub_location', '$pub_description', 5, $lat, $long)";
+if (!isset($_GET["pub_id"]) || empty($_GET["pub_id"])) {	//if none or an empty pub_id has been pushed redirect somewhere
+	$sql = "INSERT INTO Pubs(pub_name, pub_image, pub_location, pub_description, up_rating, down_rating, latitude, longitude) VALUES ('$pub_name', '$file_location', '$pub_location', '$pub_description', 0, 0, $lat, $long)";
+}
+else if ( !isset($_SESSION["ADMIN"]) || empty($_SESSION["ADMIN"]) ) {
+	$sql = "INSERT INTO Pubs(pub_name, pub_image, pub_location, pub_description, up_rating, down_rating, latitude, longitude) VALUES ('$pub_name', '$file_location', '$pub_location', '$pub_description', 0, 0, $lat, $long)";
+}
+else if ( $_SESSION["ADMIN"] == TRUE ) {
+	$pub_id = $mysql->escape_string($_GET["pub_id"]);
+	$sql = "INSERT INTO Pubs(pub_name, pub_image, pub_location, pub_description, up_rating, down_rating, latitude, longitude) WHERE pub_id = '$pub_id' VALUES ('$pub_name', '$file_location', '$pub_location', '$pub_description', 0, 0, $lat, $long)"; 
+}
+
 
 //Checking connection Connection
 if ($mysql->connect_errno) {
@@ -31,9 +42,7 @@ if ($mysql->connect_errno) {
 $result=$mysql->query($sql);
 ?>
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Pub Upload</title>
 </head>
 <body>
@@ -53,7 +62,7 @@ $mysql->close();
 ?> 
 <br>
 <a href="pubselect.html">Go Back and add another</a><br>
-<a href="pubdetails.php?pub_id=<?php echo $pub_id["id_pub"] ?>">View the pub page</a>
+<a href="pubdetails.php?pub_id=<?= $pub_id["id_pub"] ?>">View the pub page</a>
 
 </body>
 </html>

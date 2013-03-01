@@ -1,4 +1,5 @@
 <?php
+session_start();
 include ("sjdlkjf/vmnbcm/qporuiow/mysqlaccess.php");
 
 $mysql = mysqlConnect(); //create connection and select database

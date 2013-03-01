@@ -1,4 +1,5 @@
 <?php
+session_start();
 include ("sjdlkjf/vmnbcm/qporuiow/mysqlaccess.php");
 
 $mysql = mysqlConnect(); //create connection and select database
@@ -7,7 +8,7 @@ if ($mysql->connect_errno) {
 	echo "Failed to connect to MySQL: (" . $mysql->connect_errno . ") " . $mysql->connect_error;
 }
 
-$sql_query = "SELECT * FROM Pubs";
+$sql_query = "SELECT * FROM Pubs ORDER BY pub_name";
 
 $result = $mysql->query($sql_query);
 
