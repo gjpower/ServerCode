@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,6 +24,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -44,7 +48,8 @@ public class MainActivity extends Activity {
 	
 	String currentUserName;
 	EditText cID;   
-	Button submit;    
+	Button submit;   
+	Button displayPhoto;
 	TextView tv;      // TextView to show the result of MySQL query 
  
 	 private static final int SELECT_FILE1 = 1;
@@ -57,6 +62,8 @@ public class MainActivity extends Activity {
  	int UserID = 1;
  	int CrawlID = 1;
  	List<int> PreviousCrawls;
+ 	String picture = "http://www.randomwebsite.com/images/head.jpg";
+
  	
 	HttpEntity resEntity;
  	
@@ -78,6 +85,7 @@ public class MainActivity extends Activity {
 		        cID = (EditText) findViewById(R.id.commentTextView);
 		        submit = (Button) findViewById(R.id.Submit);
 		        upload = (Button) findViewById(R.id.Upload);
+		        displayPhoto = (Button) findViewById(R.id.displayPhoto);
 
 		                
 		        // define the action when user clicks on submit button
@@ -92,7 +100,13 @@ public class MainActivity extends Activity {
 		        		postComment();
 		        	}
 		        });
-	        PreviousCrawls= new ArrayList<Integer>();
+		        
+		        displayPhoto.setOnClickListener(new View.OnClickListener(){        
+		        	public void onClick(View v) {
+		        		Display_Photo(picture);
+		        	}
+		        });
+
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/*New_Member: Jack
@@ -105,6 +119,7 @@ public class MainActivity extends Activity {
 	*/
 	
 	boolean New_Member(int user_id, String username){
+
 		currentUserName = username;
 		UserID = user_id;
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -112,7 +127,7 @@ public class MainActivity extends Activity {
         postParameters.add(new BasicNameValuePair("UserID", Integer.toString(UserID)));
 		//notify server of changes
 		 try {
-			    response = executeHttpPost("http://192.168.1.15/new_member.php",postParameters);
+			    String response = executeHttpPost("http://192.168.1.15/new_member.php",postParameters);
 			    
 			    // store the result returned by PHP script that runs MySQL query
 			    String result = response.toString();  
@@ -132,6 +147,7 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
+
 	boolean Sing_In(in crawl_id){
 		CrawlID =  crawl_id;
 		for (int i=0; i<PreviousCrawls.length(); i++){
@@ -144,15 +160,15 @@ public class MainActivity extends Activity {
 		//notify server of changes
 		 try {
 			    response = executeHttpPost("http://192.168.1.15/new_users_crawl.php",postParameters);
-			    
+
 			    // store the result returned by PHP script that runs MySQL query
 			    String result = response.toString();  
 			    //tv.setText(response);
-			    
+
 			    Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
-			     
-			 
-			    
+
+
+
 		 }
 		 catch (Exception e) {
 			       	  Toast.makeText(getApplicationContext(),"Connection Error, Please try again", Toast.LENGTH_LONG).show();
@@ -161,6 +177,7 @@ public class MainActivity extends Activity {
 		 }
 		return true;
 	}
+
 
 	
 	protected void postComment (){
@@ -327,5 +344,55 @@ public class MainActivity extends Activity {
 	            Log.e("Debug", "error: " + ex.getMessage(), ex);
 	       }
 	     }
+	
 	 
+	 public static String[][] Return_Comments(int _crawlID) throws Exception{
+		    
+		 // declare parameters that are passed to PHP script 
+		    ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		    
+		    // define the parameter
+		    postParameters.add(new BasicNameValuePair("CrawlID",Integer.toString(_crawlID)));
+		    String response = null;
+		    
+		    // call executeHttpPost method passing necessary parameters 
+		    
+		response = executeHttpPost("http://10.0.2.2/display_comments_script.php",postParameters);
+
+		// store the result returned by PHP script that runs MySQL query
+		String result = response.toString();  
+		        
+		//parse JSON data
+
+		     JSONArray jArray = new JSONArray(result);
+		     
+		     final int N = jArray.length(); // number of rows returned from the mysql_query....ie number of comments for the pub crawl
+		     String[][] comment = new String[N][5]; 
+		     
+		           for(int i=0;i<N;i++){
+		                   JSONObject json_data = jArray.getJSONObject(i);
+		                   
+		                   
+		                  
+		                   
+		                   //Get an output to the screen
+		                   //returnString += "\n User ID: " + json_data.getString("id_user") +"\n" + json_data.getString("comment_body") + "\n \n";
+		                   comment[i][0] = json_data.getString("id_user");
+		                   comment[i][1] = json_data.getString("comment_body");
+		                   comment[i][2] = json_data.getString("comment_time");
+		                   comment[i][3] = json_data.getString("gps");
+		                   comment[i][4] = json_data.getString("type"); 
+		                  
+		           }
+		           return comment;
+		    }
+
+	 public void Display_Photo(String _url){
+
+		 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(_url));
+	     startActivity(browserIntent);
+		
+	}
+
+
 }
