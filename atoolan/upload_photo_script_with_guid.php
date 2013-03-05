@@ -1,68 +1,45 @@
 <?php
 
- // Host address
- $db_host  = "localhost";
-// Username
- $db_uid  = "root";
- // Password
- $db_pass = "";
- // Database name  
- $db_name  = "Pub_Crawl"; 
- // Table name
- $tbl_name="Comments"; 
+include("inc/mysqlaccess.inc");
+include ("inc/keygens.inc");
 
-//Establishing Connection
- mysql_connect("$db_host", "$db_uid", "$db_pass")or die("cannot connect"); 
- //Select Database
- mysql_select_db("$db_name")or die("cannot select DB");
- 
- $userID = $_POST["userId"];
- $crawlID = $_POST["crawlId"];
- $type = $_POST["type"];
- $gps1 = $_POST["gps1"];
- $gps2 = $_POST["gps2"];
-
-$Guid = NewGuid();
-    
-$target_path = "uploads/";
-/* Add the original filename to our target path.
-Result is "uploads/filename.extension" */
-
-$temp = $_FILES['uploadedfile1']['name'] = $Guid.".jpg"; 
-$URL = "http://192.168.1.15/uploads/".$temp;
-
-$sql="INSERT INTO Comments(comment_body,id_of_crawl,id_user,type,gps,gps2) VALUES ('$URL','$crawlID','$userID','$type','$gps1','$gps2')";
- $result=mysql_query($sql);
-   if($result)
-   {
-
-	$target_path = $target_path . basename( $_FILES['uploadedfile1']['name']);
-	if(move_uploaded_file($_FILES['uploadedfile1']['tmp_name'], $target_path)) {
-	   echo "The file ".  basename( $_FILES['uploadedfile1']['name']).
-	   " has been uploaded.";
-	} else
-	{
-	   echo "There was an error storing the file, please try again!";    
-	}
-	}
-	else
-	{
-	echo "There was an error connecting to the database.";
-	}
-	
-	
-	
-	// Generate Guid 
-function NewGuid() { 
-    $s = strtoupper(md5(uniqid(rand(),true))); 
-    $guidText = 
-        substr($s,0,8) . '-' . 
-        substr($s,8,4) . '-' . 
-        substr($s,12,4). '-' . 
-        substr($s,16,4). '-' . 
-        substr($s,20); 
-    return $guidText;
+if( !isset($_POST["userID"]) ) {
+	header("Location: /");
 }
-// End Generate Guid 
 
+
+
+$userID = $_POST["userId"];		//save posted values to local variables
+$crawlID = $_POST["crawlId"];	//should check if userId and crawlId exists in database
+$gps1 = $_POST["gps1"];
+$gps2 = $_POST["gps2"];
+$datetime = date('Y-m-d H:i:s');	//generate date of comment
+
+$mysql = mysqlConnect();	//establish connection and select database
+
+$query="INSERT INTO Comments(comment_body,id_of_crawl,id_user,latitude,longitude, comment_time) VALUES ('$URL','$crawlID','$userID','$gps1','$gps2', '$datetime')";	//put all variables in new comment
+$result=$mysql->query($query);	//run query and store result
+if($result)	//check if succesful
+{
+	if( isset($_FILES['uploadedfile1']['name']) && !empty($_FILES['uploadedfile1']['name']) ) {	//if an image has been uploaded
+		
+		$comment_id = $mysql->insert_id;	//get id which was just created
+		$guid = comment_image_keygen($pub_id);	//generate a hash based on the previous comment id
+		$target_path = "commentimg/";
+		$file_extension = pathinfo($_FILES['uploadedfile1']['name'], PATHINFO_EXTENSION);
+		$file_location = $target_path . $guid . "." . $file_extension;		//generated our new file location
+		
+		if (!move_uploaded_file($_FILES['uploadedfile1']['name'], $file_location)) {	//if fail to move file
+			echo "Error saving image";
+		}
+		else {
+			$query = "UPDATE Comments SET image='$file_location' WHERE id_comment='$comment_id'";	//set the file location for that comment
+			$result=$mysql->query($query);
+		}
+	}
+}
+else
+{
+echo "There was an error connecting to the database.";
+}
 ?>
