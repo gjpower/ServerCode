@@ -37,13 +37,13 @@
         android:text="Submit" />
 
     <Button
-        android:id="@+id/displayPhoto"
+        android:id="@+id/viewFeed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/Upload"
         android:layout_marginTop="61dp"
-        android:text="Display Photo" />
+        android:text="View Feed" />
 
 </RelativeLayout>

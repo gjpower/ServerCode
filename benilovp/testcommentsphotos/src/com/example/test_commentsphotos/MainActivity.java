@@ -4,16 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.params.ConnManagerParams;
 import org.apache.http.entity.mime.MultipartEntity;
@@ -49,8 +46,10 @@ public class MainActivity extends Activity {
 	String currentUserName;
 	EditText cID;   
 	Button submit;   
-	Button displayPhoto;
+	Button viewFeed;
 	TextView tv;      // TextView to show the result of MySQL query 
+	
+	public static String[][] _array;
  
 	 private static final int SELECT_FILE1 = 1;
 	   String selectedPath1 = "NONE";
@@ -60,9 +59,8 @@ public class MainActivity extends Activity {
 	
  
  	int UserID = 1;
- 	int CrawlID = 1;
- 	List<int> PreviousCrawls;
- 	String picture = "http://www.randomwebsite.com/images/head.jpg";
+ 	int CrawlID = 11;
+
 
  	
 	HttpEntity resEntity;
@@ -85,7 +83,7 @@ public class MainActivity extends Activity {
 		        cID = (EditText) findViewById(R.id.commentTextView);
 		        submit = (Button) findViewById(R.id.Submit);
 		        upload = (Button) findViewById(R.id.Upload);
-		        displayPhoto = (Button) findViewById(R.id.displayPhoto);
+		        viewFeed = (Button) findViewById(R.id.viewFeed);
 
 		                
 		        // define the action when user clicks on submit button
@@ -101,10 +99,37 @@ public class MainActivity extends Activity {
 		        	}
 		        });
 		        
-		        displayPhoto.setOnClickListener(new View.OnClickListener(){        
+		        viewFeed.setOnClickListener(new View.OnClickListener(){        
 		        	public void onClick(View v) {
-		        		Display_Photo(picture);
+		        		
+		        		Log.w("TEST", "ON CLICK");
+
+		    			try {
+		    				_array = Return_Comments(CrawlID);
+		    			} catch (Exception e1) {
+		    				// TODO Auto-generated catch block
+		    				e1.printStackTrace();
+		    			}
+		        		
+		        		
+		        		
+		        		Bundle mBundle = new Bundle();
+		        		mBundle.putSerializable("list", _array);
+
+		        		
+		        		
+		        		
+		        	
+		        	Intent intent2 = new Intent(MainActivity.this, ViewFeed.class);
+		        
+		        	
+		        	intent2.putExtras(mBundle);
+		        	
+		        	
+		   	     startActivity(intent2);
+		   	  
 		        	}
+		        	
 		        });
 
 	}
@@ -127,7 +152,7 @@ public class MainActivity extends Activity {
         postParameters.add(new BasicNameValuePair("UserID", Integer.toString(UserID)));
 		//notify server of changes
 		 try {
-			    String response = executeHttpPost("http://192.168.1.15/new_member.php",postParameters);
+			    String response = executeHttpPost("http://164.138.29.169/new_member.php",postParameters);
 			    
 			    // store the result returned by PHP script that runs MySQL query
 			    String result = response.toString();  
@@ -148,35 +173,6 @@ public class MainActivity extends Activity {
 	}
 	
 
-	boolean Sing_In(in crawl_id){
-		CrawlID =  crawl_id;
-		for (int i=0; i<PreviousCrawls.length(); i++){
-			if(crawl_id = PreviousCrawls[i]) return true;
-		}
-		PreviousCrawls.add(crawl_id);
-		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-		postParameters.add(new BasicNameValuePair("CrawlID",crawl_id));
-        postParameters.add(new BasicNameValuePair("UserID", Integer.toString(UserID)));
-		//notify server of changes
-		 try {
-			    response = executeHttpPost("http://192.168.1.15/new_users_crawl.php",postParameters);
-
-			    // store the result returned by PHP script that runs MySQL query
-			    String result = response.toString();  
-			    //tv.setText(response);
-
-			    Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
-
-
-
-		 }
-		 catch (Exception e) {
-			       	  Toast.makeText(getApplicationContext(),"Connection Error, Please try again", Toast.LENGTH_LONG).show();
-			       	  Log.e("log_tag","Error in http connection!!" + e.toString()); 
-			       	return false;
-		 }
-		return true;
-	}
 
 
 	
@@ -357,7 +353,7 @@ public class MainActivity extends Activity {
 		    
 		    // call executeHttpPost method passing necessary parameters 
 		    
-		response = executeHttpPost("http://10.0.2.2/display_comments_script.php",postParameters);
+		response = executeHttpPost("http://164.138.29.169/display_comments_script.php",postParameters);
 
 		// store the result returned by PHP script that runs MySQL query
 		String result = response.toString();  
@@ -367,32 +363,21 @@ public class MainActivity extends Activity {
 		     JSONArray jArray = new JSONArray(result);
 		     
 		     final int N = jArray.length(); // number of rows returned from the mysql_query....ie number of comments for the pub crawl
-		     String[][] comment = new String[N][5]; 
+		     String[][] comment = new String[N][4]; 
 		     
 		           for(int i=0;i<N;i++){
-		                   JSONObject json_data = jArray.getJSONObject(i);
+		                   JSONObject json_data = jArray.getJSONObject(i);		                   
 		                   
-		                   
-		                  
-		                   
-		                   //Get an output to the screen
-		                   //returnString += "\n User ID: " + json_data.getString("id_user") +"\n" + json_data.getString("comment_body") + "\n \n";
 		                   comment[i][0] = json_data.getString("id_user");
 		                   comment[i][1] = json_data.getString("comment_body");
-		                   comment[i][2] = json_data.getString("comment_time");
-		                   comment[i][3] = json_data.getString("gps");
-		                   comment[i][4] = json_data.getString("type"); 
-		                  
+		                   comment[i][2] = json_data.getString("image");
+		                   comment[i][3] = json_data.getString("comment_time");
+	                  
 		           }
 		           return comment;
 		    }
 
-	 public void Display_Photo(String _url){
-
-		 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(_url));
-	     startActivity(browserIntent);
-		
-	}
+	 
 
 
 }

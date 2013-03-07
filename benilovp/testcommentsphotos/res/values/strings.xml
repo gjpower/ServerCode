@@ -4,5 +4,7 @@
     <string name="app_name">test_comments/photos</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="title_activity_dynamic_comments">DynamicComments</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
