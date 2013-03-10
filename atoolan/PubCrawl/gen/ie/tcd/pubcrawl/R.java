@@ -16,35 +16,40 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
-        public static final int Crawl_Data=0x7f070013;
+        public static final int Crawl_Data=0x7f070018;
+        public static final int IVRP=0x7f070011;
         public static final int bChangeName=0x7f070010;
         public static final int bCurrentCrawls=0x7f07000d;
         public static final int bGames=0x7f07000e;
         public static final int bLogIn=0x7f07000c;
         public static final int bSaveUserName=0x7f070003;
         public static final int button1=0x7f070000;
-        public static final int buttonCards=0x7f070014;
-        public static final int buttonCoin=0x7f070016;
-        public static final int buttonDice=0x7f070015;
-        public static final int buttonSpinner=0x7f070017;
-        public static final int crawlDetails=0x7f07001a;
-        public static final int crawlName=0x7f070019;
+        public static final int buttonCards=0x7f070019;
+        public static final int buttonCoin=0x7f07001b;
+        public static final int buttonDice=0x7f07001a;
+        public static final int buttonSpinner=0x7f07001c;
+        public static final int commentEditText=0x7f070012;
+        public static final int crawlDetails=0x7f07001f;
+        public static final int crawlName=0x7f07001e;
         public static final int etUserName=0x7f070002;
         public static final int eventDescription=0x7f07000b;
         public static final int eventName=0x7f070008;
         public static final int eventOrganiser=0x7f070009;
         public static final int eventPhoto=0x7f070007;
         public static final int eventTimeDate=0x7f07000a;
-        public static final int icon=0x7f070018;
+        public static final int icon=0x7f07001d;
         public static final int listOfPubs=0x7f070006;
         public static final int listPubs=0x7f070005;
-        public static final int menu_settings=0x7f07001c;
+        public static final int menu_settings=0x7f070021;
         public static final int mylist=0x7f070004;
-        public static final int pubName=0x7f070012;
-        public static final int pubRating=0x7f070011;
-        public static final int textView1=0x7f07001b;
+        public static final int pubName=0x7f070017;
+        public static final int pubRating=0x7f070016;
+        public static final int submitComment=0x7f070013;
+        public static final int takepic=0x7f070014;
+        public static final int textView1=0x7f070020;
         public static final int tvCurrentName=0x7f070001;
         public static final int tvUserName=0x7f07000f;
+        public static final int uploadButton=0x7f070015;
     }
     public static final class layout {
         public static final int activity_card_games=0x7f030000;
@@ -54,26 +59,28 @@ public final class R {
         public static final int activity_dice_games=0x7f030004;
         public static final int activity_info=0x7f030005;
         public static final int activity_main=0x7f030006;
-        public static final int activity_row_layout=0x7f030007;
-        public static final int activity_spinner_games=0x7f030008;
-        public static final int activity_view_feed=0x7f030009;
-        public static final int createusername=0x7f03000a;
-        public static final int currentcrawls=0x7f03000b;
-        public static final int first=0x7f03000c;
-        public static final int gamemenu=0x7f03000d;
-        public static final int list_item_crawl=0x7f03000e;
-        public static final int second=0x7f03000f;
-        public static final int selectedcrawl=0x7f030010;
-        public static final int tab_main=0x7f030011;
-        public static final int third=0x7f030012;
+        public static final int activity_photo__cap=0x7f030007;
+        public static final int activity_row_layout=0x7f030008;
+        public static final int activity_spinner_games=0x7f030009;
+        public static final int activity_view_feed=0x7f03000a;
+        public static final int createusername=0x7f03000b;
+        public static final int currentcrawls=0x7f03000c;
+        public static final int first=0x7f03000d;
+        public static final int gamemenu=0x7f03000e;
+        public static final int list_item_crawl=0x7f03000f;
+        public static final int second=0x7f030010;
+        public static final int selectedcrawl=0x7f030011;
+        public static final int tab_main=0x7f030012;
+        public static final int third=0x7f030013;
     }
     public static final class menu {
         public static final int activity_card_games=0x7f060000;
         public static final int activity_coin_games=0x7f060001;
         public static final int activity_dice_games=0x7f060002;
         public static final int activity_main=0x7f060003;
-        public static final int activity_spinner_games=0x7f060004;
-        public static final int activity_view_feed=0x7f060005;
+        public static final int activity_photo__cap=0x7f060004;
+        public static final int activity_spinner_games=0x7f060005;
+        public static final int activity_view_feed=0x7f060006;
     }
     public static final class string {
         public static final int Draw=0x7f040013;
@@ -99,6 +106,7 @@ public final class R {
         public static final int title_activity_dice_games=0x7f04000e;
         public static final int title_activity_info=0x7f040018;
         public static final int title_activity_main=0x7f040004;
+        public static final int title_activity_photo__cap=0x7f04001c;
         public static final int title_activity_row_layout=0x7f040019;
         public static final int title_activity_spinner_games=0x7f040010;
         public static final int title_activity_view_feed=0x7f04001b;

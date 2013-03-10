@@ -19,7 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 //List items can be made into buttons which go to main 3 tab activity
 public class CrawlsListPage extends Activity {
 
-   
+  
 		  protected void onCreate(Bundle savedInstanceState) {
 		    super.onCreate(savedInstanceState);
 	        setContentView(R.layout.activity_crawls_list_page);
