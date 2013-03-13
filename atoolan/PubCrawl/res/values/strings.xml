@@ -30,5 +30,6 @@
     <string name="title_activity_crawls_list_page">CrawlsListPage</string>
     <string name="title_activity_view_feed">ViewFeed</string>
     <string name="title_activity_photo__cap">Photo_Cap</string>
+    <string name="title_activity_web_image">WebImage</string>
 
 </resources>
