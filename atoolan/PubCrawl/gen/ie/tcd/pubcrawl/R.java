@@ -16,7 +16,7 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
-        public static final int Crawl_Data=0x7f070019;
+        public static final int Crawl_Data=0x7f070018;
         public static final int IVRP=0x7f070011;
         public static final int bChangeName=0x7f070010;
         public static final int bCurrentCrawls=0x7f07000d;
@@ -24,33 +24,32 @@ public final class R {
         public static final int bLogIn=0x7f07000c;
         public static final int bSaveUserName=0x7f070003;
         public static final int button1=0x7f070000;
-        public static final int buttonCards=0x7f07001a;
-        public static final int buttonCoin=0x7f07001c;
-        public static final int buttonDice=0x7f07001b;
-        public static final int buttonSpinner=0x7f07001d;
+        public static final int buttonCards=0x7f070019;
+        public static final int buttonCoin=0x7f07001b;
+        public static final int buttonDice=0x7f07001a;
+        public static final int buttonSpinner=0x7f07001c;
         public static final int commentEditText=0x7f070012;
-        public static final int crawlDetails=0x7f070020;
-        public static final int crawlName=0x7f07001f;
+        public static final int crawlDetails=0x7f07001f;
+        public static final int crawlName=0x7f07001e;
         public static final int etUserName=0x7f070002;
         public static final int eventDescription=0x7f07000b;
         public static final int eventName=0x7f070008;
         public static final int eventOrganiser=0x7f070009;
         public static final int eventPhoto=0x7f070007;
         public static final int eventTimeDate=0x7f07000a;
-        public static final int icon=0x7f07001e;
+        public static final int icon=0x7f07001d;
         public static final int listOfPubs=0x7f070006;
         public static final int listPubs=0x7f070005;
-        public static final int menu_settings=0x7f070022;
+        public static final int menu_settings=0x7f070021;
         public static final int mylist=0x7f070004;
-        public static final int pubName=0x7f070017;
-        public static final int pubRating=0x7f070016;
+        public static final int pubName=0x7f070016;
+        public static final int pubRating=0x7f070015;
         public static final int submitComment=0x7f070013;
         public static final int takepic=0x7f070014;
-        public static final int textView1=0x7f070021;
+        public static final int textView1=0x7f070020;
         public static final int tvCurrentName=0x7f070001;
         public static final int tvUserName=0x7f07000f;
-        public static final int uploadButton=0x7f070015;
-        public static final int webArea=0x7f070018;
+        public static final int webArea=0x7f070017;
     }
     public static final class layout {
         public static final int activity_card_games=0x7f030000;
